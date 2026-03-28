@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 ##Се користи за врска меѓу табели (User ↔ Trade)
 from app.core.database import Base
 ## base e osnovata od koja se pravat site modeli
-import datetime
+from datetime import datetime, timezone
 
 
 class Trade(Base):
@@ -19,7 +19,7 @@ class Trade(Base):
     quantity = Column(Float)
     side = Column(String)  # BUY or SELL
     status = Column(String)  # OPEN or CLOSED
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="trades")
