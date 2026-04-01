@@ -37,18 +37,16 @@ export default function RegisterPage() {
     try {
       const response = await register(username, email, password);
 
-      // Optionally auto-login if backend returns token on register
+      // Backend now returns access_token on register
       if (response.access_token) {
         localStorage.setItem("token", response.access_token);
         setUser({
-          username: username,
-          email: email,
-          loggedIn: true
+          loggedIn: true,
+          ...response.user
         });
         setIsExiting(true);
         setTimeout(() => router.push("/dashboard"), 500);
       } else {
-        // Just redirect to login if no auto-login
         router.push("/login");
       }
 

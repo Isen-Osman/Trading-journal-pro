@@ -12,7 +12,8 @@ class TradeService:
     ## create trade
     @staticmethod
     def create_trade(db: Session, trade: TradeCreate, user_id: int):
-        db_trade = Trade(**trade.model_dump(), user_id=user_id)
+        trade_data = trade.model_dump()
+        db_trade = Trade(**trade_data, user_id=user_id)
         db.add(db_trade)
         db.commit()
         db.refresh(db_trade)

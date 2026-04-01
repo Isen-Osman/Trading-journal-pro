@@ -28,8 +28,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
     if (token) {
       try {
-        // For now using placeholder until /auth/me exists
-        setUser({ loggedIn: true, username: "Trader" }); 
+        const res = await api.get("/auth/me");
+        setUser({ loggedIn: true, ...res.data }); 
       } catch (error) {
         clearToken();
         setUser(null);
@@ -52,7 +52,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const res = await api.post("/auth/login", formData);
     const token = res.data.access_token;
     saveToken(token);
-    setUser({ loggedIn: true, username });
+    
+    // Fetch user details after login to get full user object
+    const userRes = await api.get("/auth/me");
+    setUser({ loggedIn: true, ...userRes.data });
   };
 
   const register = async (username: string, email: string, password: string) => {

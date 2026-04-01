@@ -10,7 +10,7 @@ class TradeBase(BaseModel):
     status: str
 
 class TradeCreate(TradeBase):
-    pass
+    exit_price: Optional[float] = None
 
 class TradeUpdate(BaseModel):
     exit_price: Optional[float] = None

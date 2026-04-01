@@ -13,6 +13,7 @@ app = FastAPI(title=settings.PROJECT_NAME)
 # 2. Дефинирај ги дозволените извори
 origins = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 # 3. Додај го Middleware-от на тој објект
