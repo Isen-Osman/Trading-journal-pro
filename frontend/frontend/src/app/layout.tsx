@@ -4,7 +4,10 @@ import './globals.css'
 import { AuthProvider } from '@/src/context/AuthContext'
 import Navbar from '@/src/components/layout/Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   title: 'Trading Journal Pro',
@@ -18,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} font-sans`}>
         <AuthProvider>
           <Navbar />
           {children}
