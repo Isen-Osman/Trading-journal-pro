@@ -24,7 +24,9 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans`}>
         <AuthProvider>
           <Navbar />
-          {children}
+          <div className="pl-16">
+            {children}
+          </div>
         </AuthProvider>
       </body>
     </html>
