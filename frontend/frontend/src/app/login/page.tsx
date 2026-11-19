@@ -15,7 +15,7 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     if (!username || !password) {
-      setError("Vnesi username i password");
+      setError("Enter username or password");
       return;
     }
     setLoading(true);
@@ -24,7 +24,7 @@ export default function LoginPage() {
       await login(username, password);
       router.push("/dashboard");
     } catch (err: any) {
-      setError("Pogreshno username ili password");
+      setError("Invalid username or password");
     } finally {
       setLoading(false);
     }
@@ -76,8 +76,8 @@ export default function LoginPage() {
           <AnimatePresence mode="wait">
             {error && (
               <motion.div
-                initial={{ opacity: 0, height: 0, mb: 0 }}
-                animate={{ opacity: 1, height: "auto", mb: 20 }}
+                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, height: "auto", marginBottom: 20 }}
                 exit={{ opacity: 0, height: 0 }}
                 className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3 overflow-hidden text-red-400 text-sm"
               >

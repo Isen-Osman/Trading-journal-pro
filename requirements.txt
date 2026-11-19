@@ -5,9 +5,11 @@ alembic
 pydantic
 pydantic-settings
 python-dotenv
+python-multipart
 bcrypt==4.0.1
 python-jose[cryptography]
 email-validator
 psycopg2-binary
+psycopg[binary]
 pytest
 httpx
