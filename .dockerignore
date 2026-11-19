@@ -1,0 +1,11 @@
+.git
+.idea
+frontend
+tests
+node_modules
+venv
+.env
+__pycache__
+*.py[cod]
+*.db
+README.md

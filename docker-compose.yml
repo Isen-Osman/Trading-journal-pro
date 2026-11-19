@@ -11,6 +11,11 @@ services:
       - POSTGRES_DB=trading_journal
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d trading_journal"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   pgadmin:
     image: dpage/pgadmin4
@@ -21,6 +26,31 @@ services:
       - "8888:80"
     depends_on:
       - db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/trading_journal
+      - SECRET_KEY=yoursecretkeyhere
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+    ports:
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend/frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8001/api/v1
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
